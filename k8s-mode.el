@@ -9,11 +9,21 @@
 
 ;;; Commentary:
 ;; After open Kubernetes file, you have to M-x k8s-mode to enable this major
-;; Put # -*- mode: k8s -*- in first line of file, if you want to autoload
+;; Put # -*- mode: k8s -*- in first line of file, if you want to autoload.
+;;
+;; If you're using yas-minor-mode and want to enable on k8s-mode
+;; (add-hook 'k8s-mode-hook 'yas-minor-mode)
+;;
+;; With use-package style
+;; (use-package k8s-mode
+;;  :ensure t
+;;  :hook (k8s-mode . yas-minor-mode))
+
 ;;; Code:
 
 (require 'yaml-mode)
 
+(declare-function yas-load-directory "yasnippet")
 
 (defgroup k8s nil
   "Major mode of K8s configuration file."
@@ -60,12 +70,12 @@
   ;; indentation
   (set (make-local-variable 'yaml-indent-offset) k8s-indent-offset)
   ;; completion
-  (set (make-local-variable 'completion-at-point-functions) '(k8s-complete-at-point))
+  (set (make-local-variable 'completion-at-point-functions)
+       (add-to-list 'completion-at-point-functions 'k8s-complete-at-point))
   ;; yasnippet
-  (when (featurep 'yasnippet)
-    ;; (add-to-list 'yas-snippet-dirs k8s-snip-dir t)
-    (yas-load-directory k8s-snip-dir)
-    (yas-minor-mode)))
+  (when (and (featurep 'yasnippet) (file-directory-p k8s-snip-dir))
+    (eval-after-load 'yasnippet
+      '(yas-load-directory k8s-snip-dir))))
 
 (provide 'k8s-mode)
 
