@@ -23,8 +23,6 @@
 
 (require 'yaml-mode)
 
-(declare-function yas-load-directory "yasnippet")
-
 (defgroup k8s nil
   "Major mode of K8s configuration file."
   :group 'languages
@@ -70,12 +68,11 @@
   ;; indentation
   (set (make-local-variable 'yaml-indent-offset) k8s-indent-offset)
   ;; completion
-  (set (make-local-variable 'completion-at-point-functions)
-       (add-to-list 'completion-at-point-functions 'k8s-complete-at-point))
-  ;; yasnippet
-  (when (and (featurep 'yasnippet) (file-directory-p k8s-snip-dir))
-    (eval-after-load 'yasnippet
-      '(yas-load-directory k8s-snip-dir))))
+  (make-local-variable 'completion-at-point-functions)
+  (push 'k8s-complete-at-point completion-at-point-functions))
+
+(eval-after-load 'yasnippet
+  '(when (file-directory-p k8s-snip-dir) (yas-load-directory k8s-snip-dir)))
 
 (provide 'k8s-mode)
 
