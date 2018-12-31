@@ -17,6 +17,8 @@
 ;; With use-package style
 ;; (use-package k8s-mode
 ;;  :ensure t
+;;  :config
+;;  (setq k8s-search-documentation-browser-function 'browse-url-firefox)
 ;;  :hook (k8s-mode . yas-minor-mode))
 
 ;;; Code:
@@ -61,9 +63,48 @@
           :exclusive 'no
           :company-docsig #'identity)))
 
+;; Documents
+(defcustom k8s-site-docs-url "https://kubernetes.io/docs/reference/generated/kubernetes-api/"
+  "Default kubernetes.io site URL, the URL to use open docs."
+  :group 'k8s
+  :type 'string)
+
+(defcustom k8s-site-docs-version "v1.13"
+  "Default version API."
+  :group 'k8s
+  :type 'string)
+
+(defcustom k8s-search-documentation-browser-function nil
+  "Function to display K8S documentation in a WWW browser.
+
+If non-nil, this shadows the value of `browse-url-browser-function' when
+calling `k8s-search-documentation'.  This should be X11 browser as
+`browse-url-mozilla`, `browse-url-chromium`"
+  :group 'k8s
+  :type '(choice (const :tag "default" nil) function)
+  :link '(variable-link browse-url-browser-function))
+
+(defun k8s-browse-documentation-url (url)
+  "Browse a documentation URL using the configured browser function.
+
+See `k8s-search-documentation-browser-function'."
+  (let ((browse-url-browser-function
+         (or k8s-search-documentation-browser-function
+             browse-url-browser-function)))
+    (browse-url url)))
+
+(defsubst k8s-search-web-documentation ()
+  "Return Kubernetes docs URL."
+  (k8s-browse-documentation-url (concat k8s-site-docs-url k8s-site-docs-version)))
+
+(defun k8s-goto-documents ()
+  "Go to Kubernetes documentations."
+  (interactive)
+  (k8s-search-web-documentation))
+
 ;;;###autoload
 (define-derived-mode k8s-mode yaml-mode "K8S"
-  "Major mode for editing k8s configuration file"
+  "Major mode for editing Kubernetes configuration file"
   (font-lock-add-keywords nil k8s-font-lock-keywords)
   ;; indentation
   (set (make-local-variable 'yaml-indent-offset) k8s-indent-offset)
