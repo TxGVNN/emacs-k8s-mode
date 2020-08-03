@@ -4,7 +4,7 @@
 
 ;; Author: Giap Tran <txgvnn@gmail.com>
 ;; URL: https://github.com/TxGVNN/emacs-k8s-mode
-;; Version: 0.1
+;; Version: 0.1.0
 ;; Package-Requires: ((emacs "24.3") (yaml-mode "0.0.10"))
 
 ;;; Commentary:
