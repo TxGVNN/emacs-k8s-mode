@@ -1,7 +1,8 @@
+# k8s-mode
+
 [![MELPA](http://melpa.org/packages/k8s-mode-badge.svg)](http://melpa.org/#/k8s-mode)
 [![License](http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 
-# k8s-mode
 Kubernetes file mode in Emacs
 
 ## Features
