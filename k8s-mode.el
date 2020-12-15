@@ -69,7 +69,7 @@
   :group 'k8s
   :type 'string)
 
-(defcustom k8s-site-docs-version "v1.13"
+(defcustom k8s-site-docs-version "v1.20"
   "Default version API."
   :group 'k8s
   :type 'string)
