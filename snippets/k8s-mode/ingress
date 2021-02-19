@@ -14,9 +14,11 @@ spec:
   - secretName: ${3:secret}}
   rules:
   - http:
-    paths:
-    - path: ${4:/}
-      backend:
-        service:
-          name: ${5:service}
-          port: ${6:80}
+      paths:
+      - path: ${4:/}
+        pathType: ${5:Prefix}
+        backend:
+          service:
+            name: ${6:service}
+            port:
+              number: ${7:80}
