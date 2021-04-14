@@ -12,7 +12,7 @@
 ;; Put # -*- mode: k8s -*- in first line of file, if you want to autoload.
 ;;
 ;; If you're using yas-minor-mode and want to enable on k8s-mode
-;; (add-hook 'k8s-mode-hook 'yas-minor-mode)
+;; (add-hook 'k8s-mode-hook #'yas-minor-mode)
 ;;
 ;; With use-package style
 ;; (use-package k8s-mode
@@ -33,6 +33,11 @@
 (defcustom k8s-mode-hook nil
   "*Hook run by `k8s-mode'."
   :type 'hook
+  :group 'k8s)
+
+(defcustom k8s-mode-lighter "K8s"
+  "K8s-mode lighter."
+  :type 'string
   :group 'k8s)
 
 (defcustom k8s-indent-offset 2
@@ -72,7 +77,7 @@
   :group 'k8s
   :type 'string)
 
-(defcustom k8s-site-docs-version "v1.20"
+(defcustom k8s-site-docs-version "v1.21"
   "Default version API."
   :group 'k8s
   :type 'string)
