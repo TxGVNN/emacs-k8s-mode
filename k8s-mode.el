@@ -41,7 +41,10 @@
   :group 'k8s)
 
 (defvar k8s-keywords
-  '("apiVersion"))
+  '("kind"))
+
+(defvar k8s-imenu-generic-expression
+  '(("kind: " "^kind:\\(.*\\)" 1)))
 
 (defvar k8s-font-lock-keywords
   `((,(regexp-opt k8s-keywords) . font-lock-builtin-face)
@@ -103,11 +106,13 @@ See `k8s-search-documentation-browser-function'."
   (k8s-search-web-documentation))
 
 ;;;###autoload
-(define-derived-mode k8s-mode yaml-mode "K8S"
-  "Major mode for editing Kubernetes configuration file"
+(define-derived-mode k8s-mode yaml-mode k8s-mode-lighter
+  "Major mode for editing Kubernetes configuration file."
   (font-lock-add-keywords nil k8s-font-lock-keywords)
   ;; indentation
   (set (make-local-variable 'yaml-indent-offset) k8s-indent-offset)
+  ;; imenu
+  (set (make-local-variable 'yaml-imenu-generic-expression) k8s-imenu-generic-expression)
   ;; completion
   (make-local-variable 'completion-at-point-functions)
   (push 'k8s-complete-at-point completion-at-point-functions))
