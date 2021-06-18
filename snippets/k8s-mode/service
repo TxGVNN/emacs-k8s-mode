@@ -9,6 +9,8 @@ kind: Service
 metadata:
   name: ${1:myapp}
 spec:
+  ${4:type: ClusterIP}
+  ${5:clusterIP: None # headless service}
   selector:
     app: $1
   ports:
