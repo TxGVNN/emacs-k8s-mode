@@ -3,6 +3,7 @@
 # key: tls
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
 # --
+---
 tls:
 - secretName: ${2:$1.tls}
   hosts:

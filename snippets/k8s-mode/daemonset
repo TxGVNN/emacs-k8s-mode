@@ -3,6 +3,7 @@
 # key: daemonset
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
 # --
+---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:

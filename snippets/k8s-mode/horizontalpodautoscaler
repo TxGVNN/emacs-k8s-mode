@@ -3,6 +3,7 @@
 # key: hpas
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
 # --
+---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
