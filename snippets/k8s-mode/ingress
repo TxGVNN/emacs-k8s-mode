@@ -12,14 +12,17 @@ metadata:
     #ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ${2:tls:
-  - secretName: ${3:secret}}
+  - hosts:
+    - $3
+    secretName: ${4:secret}}
   rules:
-  - http:
+  - host: ${3:fqdn}
+    http:
       paths:
-      - path: ${4:/}
-        pathType: ${5:Prefix}
+      - path: ${5:/}
+        pathType: ${6:Prefix}
         backend:
           service:
-            name: ${6:service}
+            name: ${7:service}
             port:
-              number: ${7:80}
+              number: ${8:80}
