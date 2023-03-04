@@ -26,4 +26,4 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: ${3:<Port>}
+        - containerPort: ${4:<Port>}
