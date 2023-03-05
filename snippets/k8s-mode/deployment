@@ -9,7 +9,7 @@ kind: Deployment
 metadata:
   name: ${1:myapp}
 spec:
-  replicas: ${2:2}
+  replicas: ${2:1}
   selector:
     matchLabels:
       app: $1
