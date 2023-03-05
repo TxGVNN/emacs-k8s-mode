@@ -9,6 +9,7 @@ kind: Deployment
 metadata:
   name: ${1:myapp}
 spec:
+  replicas: ${2:1}
   selector:
     matchLabels:
       app: $1
@@ -19,10 +20,10 @@ spec:
     spec:
       containers:
       - name: $1
-        image: ${2:<Image>}
+        image: ${3:<Image>}
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: ${3:<Port>}
+        - containerPort: ${4:<Port>}
