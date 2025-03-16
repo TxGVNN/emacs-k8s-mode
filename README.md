@@ -59,7 +59,12 @@ From Emacs `M-x customize-group RET k8s RET`
 ;(setq k8s-search-documentation-browser-function (quote browse-url-firefox))
 
 ```
+```
 
+;; The kubeconfig file location
+(setq k8s-kubeconfig-location "~/.kube/config")
+
+```
 ##### Note
 
 Some of the snippets are inspired/copied from https://github.com/ismailyenigul/sublime-kubernetes-snippets . Thanks to the contributors of that project.
