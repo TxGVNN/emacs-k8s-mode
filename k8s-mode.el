@@ -45,6 +45,13 @@
   :type 'integer
   :group 'k8s)
 
+(defcustom k8s-kubeconfig-location
+  (or (getenv "KUBECONFIG")
+      "~/.kube/config")
+  "The location of your kubeconfig file."
+  :type 'string
+  :group 'k8s)
+
 (defvar k8s-keywords
   '("kind"))
 
@@ -120,7 +127,11 @@ See `k8s-search-documentation-browser-function'."
   (set (make-local-variable 'yaml-imenu-generic-expression) k8s-imenu-generic-expression)
   ;; completion
   (make-local-variable 'completion-at-point-functions)
-  (push 'k8s-complete-at-point completion-at-point-functions))
+  (push 'k8s-complete-at-point completion-at-point-functions)
+  ;; compilation
+  (setq-local compile-command (format "KUBECONFIG=%s kubectl apply -f %s"
+                                      k8s-kubeconfig-location
+                                      (shell-quote-argument buffer-file-name))))
 
 (eval-after-load 'yasnippet
   '(when (file-directory-p k8s-snip-dir) (yas-load-directory k8s-snip-dir)))
